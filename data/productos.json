@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "nombre": "Marraqueta",
+    "precio": 150,
+    "categoria": "Pan",
+    "imagen": "",
+    "disponible": true,
+    "descripcion": "Pan de corteza crujiente, ideal para el desayuno."
+  },
+  {
+    "id": 2,
+    "nombre": "Hallulla",
+    "precio": 120,
+    "categoria": "Pan",
+    "imagen": "",
+    "disponible": true,
+    "descripcion": "Pan blanco y esponjoso, el favorito de la familia."
+  },
+  {
+    "id": 3,
+    "nombre": "Pan de Molde",
+    "precio": 1800,
+    "categoria": "Pan",
+    "imagen": "",
+    "disponible": true,
+    "descripcion": "Tajado, ideal para sándwiches. 20 tajadas."
+  },
+  {
+    "id": 4,
+    "nombre": "Empanada de Pino",
+    "precio": 2500,
+    "categoria": "Empanadas",
+    "imagen": "",
+    "disponible": true,
+    "descripcion": "Empanada horneada con pino casero, aceituna y huevo."
+  },
+  {
+    "id": 5,
+    "nombre": "Empanada de Queso",
+    "precio": 2200,
+    "categoria": "Empanadas",
+    "imagen": "",
+    "disponible": true,
+    "descripcion": "Rellena con queso chanco derretido."
+  },
+  {
+    "id": 6,
+    "nombre": "Bizcochuelo",
+    "precio": 4500,
+    "categoria": "Pasteles",
+    "imagen": "",
+    "disponible": true,
+    "descripcion": "Esponjoso, para 8 personas. Sin relleno."
+  }
+]
