@@ -4,16 +4,8 @@
  */
 const ProductoDAO = Object.freeze({
 
-  async getAll() {
-    try {
-      const res = await fetch('data/productos.json');
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const raw = await res.json();
-      return raw.map(p => new ProductoDTO(p));
-    } catch (err) {
-      console.error('[ProductoDAO] Error cargando catálogo:', err);
-      return [];
-    }
+  getAll() {
+    return PRODUCTOS.map(p => new ProductoDTO(p));
   },
 
   getCategorias(productos) {

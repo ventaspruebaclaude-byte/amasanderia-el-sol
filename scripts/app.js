@@ -23,10 +23,10 @@ const whatsappBtn    = document.getElementById('whatsappContacto');
 const footerYear     = document.getElementById('footerYear');
 
 // ── Inicialización ───────────────────────────────────────────────────────────
-async function init() {
+function init() {
   footerYear.textContent = new Date().getFullYear();
 
-  todosLosProductos = await ProductoDAO.getAll();
+  todosLosProductos = ProductoDAO.getAll();
 
   if (CONFIG.DEBUG) console.log('[app] Productos cargados:', todosLosProductos.length);
 
