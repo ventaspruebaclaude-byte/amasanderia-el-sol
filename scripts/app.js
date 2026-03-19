@@ -34,6 +34,8 @@ const btnCerrarCarrito  = document.getElementById('btnCerrarCarrito');
 const btnVaciar         = document.getElementById('btnVaciarCarrito');
 const btnWhatsapp       = document.getElementById('btnFinalizarWhatsapp');
 const btnFlow           = document.getElementById('btnPagarFlow');
+const clienteEmailInput = document.getElementById('clienteEmail');
+const emailError        = document.getElementById('emailError');
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 function init() {
@@ -191,16 +193,46 @@ function generarMensajeWhatsApp(items) {
   ].join('\n');
 }
 
-// ── Flow.cl (preparado para integración) ─────────────────────────────────────
-function iniciarPagoFlow(items) {
-  // TODO — Fase de pago: integrar con Flow.cl
-  // 1. Generar un ID de orden único (ej: Date.now())
-  // 2. Llamar a tu backend/serverless con CarritoDAO.toFlowPayload(items, {...})
-  // 3. Redirigir al usuario a la URL de pago que retorne Flow
-  //
-  // Documentación oficial: https://www.flow.cl/app/web/restfulapi.php
-  // Requiere cuenta activa en Flow.cl y API Key configurada en CarritoDAO.js
-  alert('Pago con Webpay/Flow.cl estará disponible pronto.\n\nUsa WhatsApp por ahora para confirmar tu pedido.');
+// ── Flow.cl — llama a la Netlify Function que firma y crea la orden ───────────
+async function iniciarPagoFlow(items) {
+  const email = clienteEmailInput.value.trim();
+
+  // Validar email
+  if (!email || !email.includes('@')) {
+    emailError.classList.remove('cc-hidden');
+    clienteEmailInput.focus();
+    return;
+  }
+  emailError.classList.add('cc-hidden');
+
+  // UI: deshabilitar botón mientras procesa
+  btnFlow.disabled    = true;
+  btnFlow.textContent = 'Procesando…';
+
+  try {
+    const ordenId  = `ASL-${Date.now()}`;   // ID único por pedido
+    const payload  = { items, email, ordenId };
+
+    const resp = await fetch('/.netlify/functions/crear-pago', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+
+    const data = await resp.json();
+
+    if (!resp.ok || data.error) {
+      throw new Error(data.error || 'Error al conectar con el sistema de pago.');
+    }
+
+    // Redirigir al checkout de Flow (Webpay / tarjeta / etc.)
+    window.location.href = data.redirectUrl;
+
+  } catch (err) {
+    alert(`No se pudo iniciar el pago:\n${err.message}\n\nUsa WhatsApp como alternativa.`);
+    btnFlow.disabled    = false;
+    btnFlow.textContent = 'Pagar con Webpay / Flow.cl';
+  }
 }
 
 // ── Eventos ───────────────────────────────────────────────────────────────────
@@ -269,9 +301,10 @@ function bindEventos() {
     );
   });
 
-  // Pagar con Flow (placeholder)
+  // Pagar con Flow
   btnFlow.addEventListener('click', () => {
     const items = CarritoDAO.getAll();
+    if (items.length === 0) return;
     iniciarPagoFlow(items);
   });
 }
