@@ -6,7 +6,7 @@ const ProductoDAO = Object.freeze({
 
   async getAll() {
     try {
-      const res = await fetch('../data/productos.json');
+      const res = await fetch('data/productos.json');
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const raw = await res.json();
       return raw.map(p => new ProductoDTO(p));

@@ -68,7 +68,7 @@ function renderGrid() {
 
 function tarjetaHTML(producto) {
   const imgSrc = producto.imagen
-    ? `../assets/img/${producto.imagen}`
+    ? `assets/img/${producto.imagen}`
     : `https://placehold.co/300x200/fef3c7/92400e?text=${encodeURIComponent(producto.nombre)}`;
 
   const waUrl = `https://wa.me/${CONFIG.WHATSAPP_NUMERO}?text=${encodeURIComponent(
