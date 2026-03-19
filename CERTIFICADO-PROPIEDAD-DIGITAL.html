@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificado de Propiedad Digital — Amasandería El Sol</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f0e8;
+      color: #1c1917;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .certificado {
+      background: #fffdf7;
+      max-width: 860px;
+      width: 100%;
+      border: 1px solid #d6cbb8;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Borde decorativo exterior */
+    .certificado::before {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border: 1.5px solid #c9a84c;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .inner { padding: 3rem 3.5rem; position: relative; z-index: 2; }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e8dfc8;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .logo-cc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #78350f;
+    }
+    .logo-cc span { color: #c9a84c; }
+
+    .folio {
+      font-size: 0.7rem;
+      color: #a8996e;
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    /* Título */
+    .titulo-bloque { text-align: center; margin-bottom: 2.5rem; }
+
+    .titulo-bloque .eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .titulo-bloque h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #1c1917;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .titulo-bloque .subtitulo {
+      font-size: 0.8rem;
+      color: #78716c;
+    }
+
+    /* Sello central */
+    .sello {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2.5rem;
+      background: linear-gradient(135deg, #78350f 0%, #c9a84c 100%);
+      color: white;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      font-size: 2.2rem;
+      box-shadow: 0 2px 16px rgba(201,168,76,0.35);
+      border: 3px solid #fffdf7;
+      outline: 2px solid #c9a84c;
+    }
+
+    /* Declaración */
+    .declaracion {
+      background: #fdf8ee;
+      border-left: 3px solid #c9a84c;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2.5rem;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #292524;
+    }
+    .declaracion strong { color: #78350f; }
+
+    /* Secciones técnicas */
+    .seccion { margin-bottom: 2rem; }
+
+    .seccion h2 {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #e8dfc8;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .item {
+      background: #fdf8ee;
+      border: 1px solid #e8dfc8;
+      border-radius: 6px;
+      padding: 0.8rem 1rem;
+    }
+
+    .item .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #a8996e;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .item .valor {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #1c1917;
+      line-height: 1.4;
+    }
+
+    .item .valor code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      background: #f0e9d6;
+      padding: 0 4px;
+      border-radius: 3px;
+      color: #78350f;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+    .badge-gold  { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .badge-green { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+
+    /* Protocolo de actualización */
+    .protocolo { counter-reset: paso; }
+    .paso {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+    .paso::before {
+      counter-increment: paso;
+      content: counter(paso);
+      background: #78350f;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* Tríada CIA */
+    .triada {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .cia-item {
+      text-align: center;
+      padding: 1rem 0.75rem;
+      background: #fdf8ee;
+      border: 1px solid #e8dfc8;
+      border-radius: 6px;
+    }
+    .cia-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+    .cia-titulo {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #78350f;
+      margin-bottom: 0.3rem;
+    }
+    .cia-desc {
+      font-size: 0.7rem;
+      color: #78716c;
+      line-height: 1.4;
+    }
+
+    /* Footer firma */
+    .firma-bloque {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid #e8dfc8;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .firma-lado { text-align: center; }
+    .linea-firma {
+      width: 160px;
+      border-bottom: 1px solid #a8996e;
+      margin: 0 auto 0.4rem;
+      height: 32px;
+    }
+    .firma-nombre {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #292524;
+    }
+    .firma-cargo {
+      font-size: 0.62rem;
+      color: #a8996e;
+    }
+
+    .sello-valido {
+      background: #d1fae5;
+      border: 1.5px solid #6ee7b7;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      text-align: center;
+    }
+    .sello-valido .sv-titulo {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #065f46;
+      font-weight: 700;
+    }
+    .sello-valido .sv-check { font-size: 1.4rem; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .certificado { box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+<div class="certificado">
+  <div class="inner">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="logo-cc">Code<span>Clutions</span> Engine</div>
+      <div class="folio">
+        N° de Folio: CCE-2026-001<br>
+        Fecha de emisión: 18 de marzo de 2026<br>
+        Proyecto: amasanderia-el-sol
+      </div>
+    </div>
+
+    <!-- TÍTULO -->
+    <div class="titulo-bloque">
+      <div class="eyebrow">Documento oficial de entrega</div>
+      <h1>Certificado de Propiedad Digital</h1>
+      <p class="subtitulo">Acredita la titularidad, arquitectura y condiciones de transferencia del producto web</p>
+    </div>
+
+    <!-- SELLO -->
+    <div class="sello">🍞</div>
+
+    <!-- DECLARACIÓN -->
+    <div class="declaracion">
+      Por medio del presente documento, <strong>CodeClutions</strong> certifica que el producto web
+      denominado <strong>"Amasandería El Sol"</strong> ha sido desarrollado íntegramente bajo los
+      estándares técnicos del <strong>CodeClutions-Engine v1.0</strong> y que, a partir de esta fecha,
+      la totalidad del código fuente, activos digitales y repositorio Git asociado son propiedad
+      exclusiva del cliente, sin restricciones de uso, modificación ni distribución.
+      El producto opera con <strong>costo de infraestructura $0</strong> y no genera dependencias
+      económicas con ningún proveedor de servicios.
+    </div>
+
+    <!-- STACK TÉCNICO -->
+    <div class="seccion">
+      <h2>Stack Tecnológico Certificado</h2>
+      <div class="grid-2">
+        <div class="item">
+          <div class="label">Interfaz de usuario</div>
+          <div class="valor">
+            <span class="badge badge-gold">HTML5</span>
+            <span class="badge badge-gold">Tailwind CSS 3.4.1</span><br>
+            Diseño responsive — mobile first. Sin framework reactivo.
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">Lógica de negocio</div>
+          <div class="valor">
+            <span class="badge badge-gold">Vanilla JS (ES2022)</span><br>
+            Patrón DAO/DTO. Sin dependencias de npm.
+            Punto de entrada: <code>scripts/app.js</code>
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">Capa de datos</div>
+          <div class="valor">
+            <span class="badge badge-gold">JSON estático</span><br>
+            Catálogo en <code>data/productos.json</code>.
+            Editable sin conocimientos técnicos.
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">Canal de ventas</div>
+          <div class="valor">
+            <span class="badge badge-green">WhatsApp API</span><br>
+            Botón por producto con nombre y precio
+            pre-cargados en el mensaje.
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">Hosting</div>
+          <div class="valor">
+            <span class="badge badge-green">GitHub Pages</span>
+            <span class="badge badge-green">$0/mes</span><br>
+            <code>ventaspruebaclaude-byte.github.io/amasanderia-el-sol/public/</code>
+          </div>
+        </div>
+        <div class="item">
+          <div class="label">Control de versiones</div>
+          <div class="valor">
+            <span class="badge badge-gold">Git</span><br>
+            Repositorio: <code>amasanderia-el-sol</code><br>
+            Historial limpio — 2 commits documentados.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROTOCOLO DE ACTUALIZACIÓN -->
+    <div class="seccion">
+      <h2>Protocolo de Actualización de Catálogo</h2>
+      <div class="protocolo">
+        <div class="paso">Abrir el archivo <code>data/productos.json</code> desde el repositorio en GitHub (botón ✏️ Edit).</div>
+        <div class="paso">Agregar, modificar o deshabilitar productos siguiendo la estructura: <code>{"id", "nombre", "precio", "categoria", "disponible"}</code>. Para ocultar un producto sin borrarlo, cambiar <code>"disponible": false</code>.</div>
+        <div class="paso">Guardar con "Commit changes". GitHub Pages publicará los cambios en menos de 2 minutos, sin intervención técnica.</div>
+        <div class="paso">Para subir imágenes: formato <strong>WebP</strong>, máximo <strong>200 KB</strong>, carpeta <code>assets/img/</code>. Herramienta gratuita de conversión: squoosh.app.</div>
+        <div class="paso">Ante cualquier duda o modificación avanzada, contactar a <strong>CodeClutions</strong>.</div>
+      </div>
+    </div>
+
+    <!-- TRÍADA CIA -->
+    <div class="seccion">
+      <h2>Cumplimiento Tríada CIA — Estándar INACAP</h2>
+      <div class="triada">
+        <div class="cia-item">
+          <div class="cia-icon">🔒</div>
+          <div class="cia-titulo">Confidencialidad</div>
+          <div class="cia-desc">Sin API keys ni credenciales en el código. Endpoint de contacto vía Formspree (sin email expuesto).</div>
+        </div>
+        <div class="cia-item">
+          <div class="cia-icon">✅</div>
+          <div class="cia-titulo">Integridad</div>
+          <div class="cia-desc">Constantes de configuración con <code>Object.freeze()</code>. JSON versionado. DTOs validan tipos de datos.</div>
+        </div>
+        <div class="cia-item">
+          <div class="cia-icon">⚡</div>
+          <div class="cia-titulo">Disponibilidad</div>
+          <div class="cia-desc">Sin backend propio. Carga en &lt;3s en 3G. Fallback de imágenes integrado. Uptime: 99.9% (GitHub).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIRMA -->
+    <div class="firma-bloque">
+      <div class="firma-lado">
+        <div class="linea-firma"></div>
+        <div class="firma-nombre">CodeClutions</div>
+        <div class="firma-cargo">Desarrollador — CodeClutions Engine</div>
+      </div>
+
+      <div class="sello-valido">
+        <div class="sv-check">✅</div>
+        <div class="sv-titulo">Producto verificado<br>Costo infraestructura: $0</div>
+      </div>
+
+      <div class="firma-lado">
+        <div class="linea-firma"></div>
+        <div class="firma-nombre">Amasandería El Sol</div>
+        <div class="firma-cargo">Titular del producto digital</div>
+      </div>
+    </div>
+
+  </div><!-- /inner -->
+</div><!-- /certificado -->
+</body>
+</html>
