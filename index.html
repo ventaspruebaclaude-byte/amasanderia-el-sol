@@ -3,43 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amasandería | Productos Frescos</title>
+  <title>Amasandería El Sol | Productos Frescos</title>
   <meta name="description" content="Amasandería artesanal. Pan fresco todos los días." />
 
-  <!-- Tailwind CDN — versión fija -->
   <script src="https://cdn.tailwindcss.com/3.4.1"></script>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    /* Fallback crítico si Tailwind CDN falla */
     body { font-family: 'Inter', sans-serif; margin: 0; background: #fafaf9; color: #1c1917; }
-    .cc-hidden { display: none; }
+    .cc-hidden  { display: none !important; }
+    .cc-sidebar-open  { transform: translateX(0)   !important; }
+    .cc-overlay-open  { opacity: 1 !important; pointer-events: auto !important; }
   </style>
 </head>
-<body class="bg-stone-50 text-stone-900 font-['Inter']">
+<body class="bg-stone-50 text-stone-900">
 
   <!-- ===== HEADER ===== -->
-  <header class="bg-amber-700 text-white shadow-md sticky top-0 z-50">
+  <header class="bg-amber-700 text-white shadow-md sticky top-0 z-30">
     <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
       <div>
-        <h1 class="text-xl font-bold tracking-tight">🍞 Amasandería</h1>
+        <h1 class="text-xl font-bold tracking-tight">🍞 Amasandería El Sol</h1>
         <p class="text-amber-200 text-xs">Pan fresco · Todos los días</p>
       </div>
-      <nav class="hidden sm:flex gap-6 text-sm font-medium">
-        <a href="#catalogo" class="hover:text-amber-200 transition-colors">Catálogo</a>
-        <a href="#contacto" class="hover:text-amber-200 transition-colors">Contacto</a>
-      </nav>
+      <div class="flex items-center gap-4">
+        <nav class="hidden sm:flex gap-6 text-sm font-medium">
+          <a href="#catalogo" class="hover:text-amber-200 transition-colors">Catálogo</a>
+          <a href="#contacto" class="hover:text-amber-200 transition-colors">Contacto</a>
+        </nav>
+        <!-- Botón carrito -->
+        <button
+          id="btnAbrirCarrito"
+          aria-label="Ver carrito"
+          class="relative p-2 rounded-full hover:bg-amber-600 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z" />
+          </svg>
+          <span
+            id="carritoContador"
+            class="cc-hidden absolute -top-1 -right-1 bg-green-400 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
+          >0</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <!-- ===== HERO ===== -->
   <section class="bg-amber-50 border-b border-amber-100 py-12 text-center px-4">
     <h2 class="text-3xl font-bold text-amber-800 mb-2">Bienvenido a nuestra Amasandería</h2>
-    <p class="text-stone-600 max-w-xl mx-auto text-sm">Elaboramos pan artesanal con ingredientes frescos. Encuentra todo nuestro catálogo abajo.</p>
+    <p class="text-stone-600 max-w-xl mx-auto text-sm">Elaboramos pan artesanal con ingredientes frescos. Agrega productos al carrito y coordina tu pedido por WhatsApp.</p>
   </section>
 
   <!-- ===== FILTROS + BUSCADOR ===== -->
@@ -51,24 +66,20 @@
         placeholder="Buscar producto..."
         class="w-full sm:w-72 border border-stone-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
       />
-      <div id="filtrosCategoria" class="flex flex-wrap gap-2 text-sm">
-        <!-- Botones de categoría generados dinámicamente -->
-      </div>
+      <div id="filtrosCategoria" class="flex flex-wrap gap-2 text-sm"></div>
     </div>
   </section>
 
   <!-- ===== CATÁLOGO ===== -->
-  <main id="catalogo" class="max-w-5xl mx-auto px-4 pb-12">
-    <div id="productoGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      <!-- Tarjetas generadas por app.js -->
-    </div>
+  <main id="catalogo" class="max-w-5xl mx-auto px-4 pb-24">
+    <div id="productoGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
     <p id="sinResultados" class="cc-hidden text-center text-stone-400 py-12 text-sm">No se encontraron productos.</p>
   </main>
 
   <!-- ===== CONTACTO ===== -->
   <section id="contacto" class="bg-amber-700 text-white py-12 px-4 text-center">
-    <h3 class="text-xl font-semibold mb-2">¿Pedidos o consultas?</h3>
-    <p class="text-amber-200 text-sm mb-4">Escríbenos directamente por WhatsApp</p>
+    <h3 class="text-xl font-semibold mb-2">¿Pedidos o consultas directas?</h3>
+    <p class="text-amber-200 text-sm mb-4">También puedes escribirnos sin armar un carrito</p>
     <a
       id="whatsappContacto"
       href="#"
@@ -76,7 +87,6 @@
       rel="noopener noreferrer"
       class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-colors text-sm"
     >
-      <!-- SVG WhatsApp inline -->
       <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 -mt-0.5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
         <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.557 4.112 1.529 5.834L.057 23.215a.75.75 0 0 0 .921.921l5.382-1.473A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.682-.51-5.21-1.4l-.374-.22-3.874 1.059 1.062-3.87-.236-.386A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
@@ -87,13 +97,103 @@
 
   <!-- ===== FOOTER ===== -->
   <footer class="bg-stone-800 text-stone-400 text-center text-xs py-4">
-    <p>&copy; <span id="footerYear"></span> Amasandería. Sitio desarrollado por <strong class="text-stone-300">CodeClutions</strong>.</p>
+    <p>&copy; <span id="footerYear"></span> Amasandería El Sol. Sitio desarrollado por <strong class="text-stone-300">CodeClutions</strong>.</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- ===== OVERLAY ===== -->
+  <div
+    id="carritoOverlay"
+    class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300"
+  ></div>
+
+  <!-- ===== SIDEBAR CARRITO ===== -->
+  <aside
+    id="carritoPanel"
+    class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white z-50 shadow-2xl
+           transform translate-x-full transition-transform duration-300
+           flex flex-col"
+    aria-label="Carrito de compras"
+  >
+    <!-- Cabecera sidebar -->
+    <div class="flex items-center justify-between px-5 py-4 border-b border-stone-200 bg-amber-700 text-white">
+      <div class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z" />
+        </svg>
+        <h2 class="font-semibold text-base">Tu Pedido</h2>
+      </div>
+      <button id="btnCerrarCarrito" aria-label="Cerrar carrito" class="p-1 hover:bg-amber-600 rounded transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Lista de ítems -->
+    <div id="carritoItems" class="flex-1 overflow-y-auto px-5 py-4 space-y-3">
+      <!-- generado por app.js -->
+    </div>
+
+    <!-- Estado vacío -->
+    <div id="carritoVacio" class="cc-hidden flex-1 flex flex-col items-center justify-center text-stone-400 px-5">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 mb-3 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z" />
+      </svg>
+      <p class="text-sm font-medium">Tu carrito está vacío</p>
+      <p class="text-xs mt-1">Agrega productos desde el catálogo</p>
+    </div>
+
+    <!-- Footer con total y acciones -->
+    <div id="carritoFooter" class="border-t border-stone-200 bg-stone-50 px-5 py-4 space-y-3">
+
+      <!-- Resumen total -->
+      <div class="flex items-center justify-between">
+        <span class="text-sm text-stone-500">Total del pedido</span>
+        <span id="carritoTotal" class="text-lg font-bold text-amber-700">$0</span>
+      </div>
+
+      <!-- Botón vaciar -->
+      <button
+        id="btnVaciarCarrito"
+        class="w-full text-xs text-stone-400 hover:text-red-500 transition-colors py-1"
+      >Vaciar carrito</button>
+
+      <hr class="border-stone-200" />
+
+      <!-- BOTÓN PRINCIPAL: WhatsApp con detalle completo -->
+      <button
+        id="btnFinalizarWhatsapp"
+        class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.557 4.112 1.529 5.834L.057 23.215a.75.75 0 0 0 .921.921l5.382-1.473A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.682-.51-5.21-1.4l-.374-.22-3.874 1.059 1.062-3.87-.236-.386A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        Finalizar pedido por WhatsApp
+      </button>
+
+      <!-- BOTÓN FLOW (preparado, pendiente de activar) -->
+      <button
+        id="btnPagarFlow"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm"
+      >
+        <!-- Ícono tarjeta -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+        </svg>
+        Pagar con Webpay / Flow.cl
+      </button>
+      <p class="text-center text-xs text-stone-400">Requiere cuenta activa en Flow.cl · <span class="text-amber-600 font-medium">Próximamente</span></p>
+
+    </div>
+  </aside>
+
+  <!-- Scripts — orden de carga importa -->
   <script src="data/productos.js"></script>
   <script src="scripts/dto/ProductoDTO.js"></script>
+  <script src="scripts/dto/CarritoItemDTO.js"></script>
   <script src="scripts/dao/ProductoDAO.js"></script>
+  <script src="scripts/dao/CarritoDAO.js"></script>
   <script src="scripts/app.js"></script>
 </body>
 </html>
